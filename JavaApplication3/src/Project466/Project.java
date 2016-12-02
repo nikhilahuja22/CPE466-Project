@@ -6,32 +6,11 @@ import java.util.Scanner;
 
 public class Project {
 	static ArrayList<IncomePerson> data = new ArrayList<>();
-	static String fname = "income.csv";
 	
 	public static void main(String args[]){
 		parseData();
 		getInput();
 		System.out.println(getDistance(data.get(0), data.get(1)));
-	}
-	
-	/* read file, save into data arraylist */
-	public static void parseData(){
-		try{
-			Scanner fscan = new Scanner(new File(fname));
-
-			fscan.nextLine();
-			while(fscan.hasNextLine()){
-				IncomePerson p = new IncomePerson(fscan.nextLine());
-				data.add(p);
-			}
-			System.out.println("Read "+data.size()+" tuples.");
-			
-			/*for(int i=0; i<5; i++){
-				System.out.println(data.get(i).age);
-			}*/
-		}catch(Exception e){
-			//File not found
-		}
 	}
 	
 	/**/
