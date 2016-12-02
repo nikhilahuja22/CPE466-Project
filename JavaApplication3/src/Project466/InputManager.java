@@ -100,7 +100,38 @@ public class InputManager {
 		return ip;
 	}
 	public IncomePerson filterRace(IncomePerson ip){
+		Scanner in = new Scanner(System.in);
 		System.out.println("  Filter: Race");
+		System.out.println(
+				"  1) White"
+				+"  2) Black"
+				+"  3) Asian / Pacific Islander"
+				+"  4) American-Indian / Eskimo"
+				+"  5) Other"
+		);
+		
+		int input = in.nextInt();
+		String race = "";
+		switch(input){
+			case 1:
+				race = "White";
+				break;
+			case 2:
+				race = "Black";
+				break;
+			case 3:
+				race = "Asian-Pac-Islander";
+				break;
+			case 4:
+				race = "Amer-Indian-Eskimo";
+				break;
+			case 5:
+				race = "Other";
+				break;
+			default:
+				break;
+		}
+		ip.race = race;
 		return ip;
 	}
 	public IncomePerson filterSex(IncomePerson ip){

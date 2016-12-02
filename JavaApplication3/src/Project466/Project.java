@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class Project {
 	static ArrayList<IncomePerson> data = new ArrayList<>();
+	static ArrayList<IncomePerson> filteredData;
 	static DataParser dp = new DataParser();
 	static InputManager im = new InputManager();
 	
@@ -24,6 +25,18 @@ public class Project {
                 for(IncomePerson ip : nearestNeighbors) {
                     System.out.println(ip.toString());
                 }
+		filteredData = filterData(data, filter);
+	}
+	
+	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter){
+		ArrayList<IncomePerson> fal = new ArrayList<>();
+		for(int i=0; i<al.size(); i++){
+			if(filter.matches(al.get(i))){
+				fal.add(al.get(i));
+			}
+		}
+		System.out.println("Filter run. "+(al.size()-fal.size())+" tuples removed.");
+		return fal;
 	}
 	
 	/* get 3d distance between 2 people */
