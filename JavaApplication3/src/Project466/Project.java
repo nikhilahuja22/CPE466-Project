@@ -20,16 +20,17 @@ public class Project {
 			Scanner fscan = new Scanner(new File(fname));
 
 			fscan.nextLine();
-			while(fscan.hasNextLine() && data.size() < 50){
+			while(fscan.hasNextLine()){
 				IncomePerson p = new IncomePerson(fscan.nextLine());
 				data.add(p);
 			}
-
-			for(int i=0; i<5; i++){
-				System.out.println(data.get(i).age);
-			}
-		}catch(Exception e){
+			System.out.println("Read "+data.size()+" tuples.");
 			
+			/*for(int i=0; i<5; i++){
+				System.out.println(data.get(i).age);
+			}*/
+		}catch(Exception e){
+			//File not found
 		}
 	}
 	
