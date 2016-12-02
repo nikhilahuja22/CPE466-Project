@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Project {
@@ -24,6 +26,7 @@ public class Project {
                 for(IncomePerson ip : nearestNeighbors) {
                     System.out.println(ip.toString());
                 }
+                System.out.print(mostProbableCategory("race", nearestNeighbors));
 	}
 	
 	/* get 3d distance between 2 people */
@@ -48,10 +51,46 @@ public class Project {
                 ipsWithDist.add(ip);
             }
             
-            Collections.sort(ipsWithDist);
-            
+            Collections.sort(ipsWithDist);       
             return  ipsWithDist.subList(0, k);
             
-
         }
+        
+        public static String mostProbableCategory(String filter, List<IncomePerson> listNN) {
+            HashSet<String> valuesForFilter = findValueForFilter(filter, listNN);
+            HashMap<String, Integer> probTable = new HashMap();
+            
+            for(String text : valuesForFilter) {
+                probTable.put(text, new Integer(0));
+            }
+            
+            for(IncomePerson ip : listNN) {
+                String valueForIP = ip.getValueFor(filter);
+                probTable.put(valueForIP, probTable.get(valueForIP).intValue() + 1);
+            }
+            
+            int highestProb = 0;
+            String highestFilter = "";
+            for(Map.Entry<String, Integer> entry : probTable.entrySet()) {
+                if(entry.getValue().intValue() > highestProb) {
+                    highestProb = entry.getValue().intValue();
+                    highestFilter = entry.getKey();
+                }
+            }
+            return highestFilter;
+            
+        }
+        
+        public static HashSet<String> findValueForFilter(String filter, List<IncomePerson> listNN) {
+            HashSet<String> values = new HashSet<>();
+            for(IncomePerson ip : listNN) {
+                values.add(ip.getValueFor(filter));
+            }
+            
+            return values;
+            
+            
+        }
+        
+
 }
