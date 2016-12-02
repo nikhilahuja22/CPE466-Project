@@ -2,7 +2,7 @@ package Project466;
 
 import java.util.Scanner;
 
-public class IncomePerson {
+public class IncomePerson implements Comparable{
 	public Integer age = null;
 	String workclass = "";
 	public Integer edu = null;
@@ -15,6 +15,9 @@ public class IncomePerson {
 	public String country = "";
 	public String income = "";
 	
+        public IncomePerson inputPerson;
+        public double distanceToIIP;
+        
 	public IncomePerson(){}
 	
 	public IncomePerson(String infoLine){
@@ -69,4 +72,31 @@ public class IncomePerson {
 			return false;
 		return true;
 	}
+        
+        
+        /* get 3d distance between 2 people */
+	public void getDistance( IncomePerson inIP){
+		double ageWgt = 1, eduWgt = 1, hoursWgt = 1;
+		double res =
+				Math.sqrt(
+						ageWgt * Math.pow( (double)this.age - (double)inIP.age, 2 )
+						+ eduWgt * Math.pow( (double)this.edu - (double)inIP.edu, 2 )
+						+ hoursWgt * Math.pow( (double)this.hours - (double)inIP.hours, 2 )
+				);
+		distanceToIIP = res;
+	}
+
+    @Override
+    public int compareTo(Object o) {
+        IncomePerson ip = (IncomePerson) o;
+        
+        if(this.distanceToIIP > ip.distanceToIIP) {
+            return 1;
+        }
+        else if(this.distanceToIIP == ip.distanceToIIP) {
+            return 0;
+        }
+        
+        return -1;
+    }
 }

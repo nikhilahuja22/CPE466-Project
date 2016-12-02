@@ -2,6 +2,7 @@ package Project466;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Project {
@@ -57,4 +58,17 @@ public class Project {
 				);
 		return res;
 	}
+        
+        
+        public static void findKNN(IncomePerson key, int k) {
+            HashMap<IncomePerson, Double> distanceTable = new HashMap<>();
+            
+            for(IncomePerson ip : data) {
+                distanceTable.put(ip, getDistance(key,ip));
+            }
+            
+            
+            
+            
+        }
 }
