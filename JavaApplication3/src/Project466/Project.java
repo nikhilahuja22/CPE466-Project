@@ -2,7 +2,10 @@ package Project466;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Project {
@@ -15,6 +18,12 @@ public class Project {
 		IncomePerson inputPerson = im.getInputPerson();
 		IncomePerson filter = im.getFilter();
 		System.out.println(getDistance(data.get(0), data.get(1)));
+                
+                List<IncomePerson> nearestNeighbors = findKNN(inputPerson, 50);
+                
+                for(IncomePerson ip : nearestNeighbors) {
+                    System.out.println(ip.toString());
+                }
 	}
 	
 	/* get 3d distance between 2 people */
@@ -30,15 +39,19 @@ public class Project {
 	}
         
         
-        public static void findKNN(IncomePerson key, int k) {
-            HashMap<IncomePerson, Double> distanceTable = new HashMap<>();
+        public static List<IncomePerson> findKNN(IncomePerson key, int k) {
             
+            
+            ArrayList<IncomePerson> ipsWithDist= new ArrayList<>();
             for(IncomePerson ip : data) {
-                distanceTable.put(ip, getDistance(key,ip));
+                ip.getDistance(key);
+                ipsWithDist.add(ip);
             }
             
+            Collections.sort(ipsWithDist);
             
+            return  ipsWithDist.subList(0, k);
             
-            
+
         }
 }

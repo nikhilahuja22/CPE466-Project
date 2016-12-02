@@ -99,4 +99,18 @@ public class IncomePerson implements Comparable{
         
         return -1;
     }
+    
+    @Override
+    public String toString() {
+        return " age: " + age.intValue()
+               +" workclass: " + workclass
+               +" edu: " + edu
+               +" marital: " + marital
+               +" relationship: " + relationship
+               +" race: " + race
+               +" sex: " + sex
+               +" hours: " +hours.intValue()
+               +" country: " + country
+               +" income: " + income ;
+    }
 }
