@@ -9,9 +9,12 @@ public class DataParser {
 	
 	String fname = "income.csv";
 	
+	public DataParser(){}
+	
 	/* read file, save into data arraylist */
-	public void parseData(){
+	public ArrayList<IncomePerson> parseData(){
 		ArrayList<IncomePerson> data = new ArrayList<>();
+		
 		try{
 			Scanner fscan = new Scanner(new File(fname));
 
@@ -28,6 +31,8 @@ public class DataParser {
 		}catch(Exception e){
 			//File not found
 		}
+		
+		return data;
 	}
 	
 }

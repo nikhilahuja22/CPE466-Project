@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class Project {
 	static ArrayList<IncomePerson> data = new ArrayList<>();
+	static String fname = "income.csv";
+	static DataParser dp = new DataParser();
 	
 	public static void main(String args[]){
-		parseData();
+		data = dp.parseData();
 		getInput();
 		System.out.println(getDistance(data.get(0), data.get(1)));
 	}
