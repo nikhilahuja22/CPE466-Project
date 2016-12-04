@@ -15,7 +15,6 @@ public class Project {
 	static boolean debug = true;
 
 	static ArrayList<IncomePerson> data = new ArrayList<>();
-	static ArrayList<IncomePerson> filteredData;
 	static DataParser dp = new DataParser();
 	static InputManager im = new InputManager();
 
@@ -25,6 +24,7 @@ public class Project {
 		IncomePerson filter = im.getFilter();
 		
 		System.out.println("Filter: "+filter);
+		data = filterData(data, filter);
 		
 		List<IncomePerson> nearestNeighbors = findKNN(inputPerson, 50);
 
@@ -33,7 +33,6 @@ public class Project {
 		}
 
 		System.out.println("Most probable category: "+ mostProbableCategory("race", nearestNeighbors));
-		filteredData = filterData(data, filter);
 	}
 
 	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {
