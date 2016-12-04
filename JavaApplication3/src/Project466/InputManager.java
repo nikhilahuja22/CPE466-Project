@@ -92,7 +92,49 @@ public class InputManager {
 	}
 	
 	public IncomePerson filterWorkclass(IncomePerson ip){
+		Scanner in = new Scanner(System.in);
 		System.out.println("  Filter: Work class/sector");
+		System.out.println(
+				"  1) Private"
+					+"  2) Self-emp-not-inc"
+					+"  3) Self-emp-inc"
+					+"  4) Federal-gov"
+					+"  5) Local-gov"
+					+"  6) State-gov"
+					+"  7) Without-pay"
+					+"  8) Never-worked"
+		);
+		int input = in.nextInt();
+		String workClass = "";
+		switch(input) {
+			case 1:
+				workClass = "Private";
+				break;
+			case 2:
+				workClass = "Self-emp-not-inc";
+				break;
+			case 3:
+				workClass = "Self-emp-inc";
+				break;
+			case 4:
+				workClass = "Federal-gov";
+				break;
+			case 5:
+				workClass = "Local-gov";
+				break;
+			case 6:
+				workClass = "State-gov";
+				break;
+			case 7:
+				workClass = "Without-pay";
+				break;
+			case 8:
+				workClass = "Never-Worked";
+				break;
+			default:
+				break;
+		}
+		ip.workclass = workClass;
 		return ip;
 	}
 	public IncomePerson filterMarital(IncomePerson ip){
