@@ -228,10 +228,10 @@ public class InputManager {
 		String gender = "";
 		switch (input) {
 			case 1:
-				gender = "female";
+				gender = "Female";
 				break;
 			case 2:
-				gender = "male";
+				gender = "Male";
 				break;
 			default:
 				break;

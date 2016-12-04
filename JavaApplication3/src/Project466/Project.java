@@ -23,7 +23,7 @@ public class Project {
                 double kNNRatio = 0.25;
 		IncomePerson inputPerson = im.getInputPerson();
 		IncomePerson filter = im.getFilter();
-		
+
 		System.out.println("Filter: "+filter);
 		data = filterData(data, filter);
 		
