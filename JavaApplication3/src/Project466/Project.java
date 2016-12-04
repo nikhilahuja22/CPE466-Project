@@ -61,7 +61,7 @@ public class Project {
 		return res;
 	}
 
-	public static List<IncomePerson> findKNN(IncomePerson key, int k, int kNNRatio) {
+	public static List<IncomePerson> findKNN(IncomePerson key, int k, double kNNRatio) {
 
 		ArrayList<IncomePerson> ipsWithDist = new ArrayList<>();
 		for (IncomePerson ip : data) {
@@ -71,7 +71,7 @@ public class Project {
 
 		Collections.sort(ipsWithDist);
 
-		return ipsWithDist.subList(0, kNNRatio*ipsWithDist.size());
+		return ipsWithDist.subList(0, k);
 
 	}
 
