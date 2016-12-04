@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Project {
 
 	static boolean debug = true;
-
+        static final int k = 10;
 	static ArrayList<IncomePerson> data = new ArrayList<>();
 	static DataParser dp = new DataParser();
 	static InputManager im = new InputManager();
@@ -73,6 +73,12 @@ public class Project {
 		return ipsWithDist.subList(0, k);
 
 	}
+        
+        public static String bagging(ArrayList<IncomePerson> data, String category) {
+        
+            
+            
+        }
 
 	public static String mostProbableCategory(String filter, List<IncomePerson> listNN) {
 		HashSet<String> valuesForFilter = findValueForFilter(filter, listNN);
