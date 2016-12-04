@@ -20,19 +20,20 @@ public class Project {
 
 	public static void main(String args[]) {
 		data = dp.parseData();
+                double kNNRatio = 0.25;
 		IncomePerson inputPerson = im.getInputPerson();
 		IncomePerson filter = im.getFilter();
 		
 		System.out.println("Filter: "+filter);
 		data = filterData(data, filter);
 		
-		List<IncomePerson> nearestNeighbors = findKNN(inputPerson, 50);
+		List<IncomePerson> nearestNeighbors = findKNN(inputPerson, 50,kNNRatio );
 
 		for (IncomePerson ip : nearestNeighbors) {
 			System.out.println(ip.toString());
 		}
 
-		System.out.println("Most probable category: "+ mostProbableCategory("race", nearestNeighbors));
+		System.out.println("Most probable category: "+ mostProbableCategory("income", nearestNeighbors));
 	}
 
 	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {
@@ -60,7 +61,7 @@ public class Project {
 		return res;
 	}
 
-	public static List<IncomePerson> findKNN(IncomePerson key, int k) {
+	public static List<IncomePerson> findKNN(IncomePerson key, int k, int kNNRatio) {
 
 		ArrayList<IncomePerson> ipsWithDist = new ArrayList<>();
 		for (IncomePerson ip : data) {
@@ -70,7 +71,7 @@ public class Project {
 
 		Collections.sort(ipsWithDist);
 
-		return ipsWithDist.subList(0, k);
+		return ipsWithDist.subList(0, kNNRatio*ipsWithDist.size());
 
 	}
         

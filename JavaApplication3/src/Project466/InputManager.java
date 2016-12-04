@@ -6,6 +6,7 @@
 package Project466;
 
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 /**
  *
@@ -138,7 +139,46 @@ public class InputManager {
 		return ip;
 	}
 	public IncomePerson filterMarital(IncomePerson ip){
+		Scanner in = new Scanner(System.in);
 		System.out.println("  Filter: Marital status");
+		System.out.println(
+				"  1) Married-civ-spouse"
+				+"  2) Divorced"
+				+"  3) Never-married"
+				+"  4) Separated"
+				+"  5) Widowed"
+				+"  6) Married-spouse-absent"
+				+"  7) Married-AF-spouse"
+
+		);
+		int input = in.nextInt();
+		String martialStatus = "";
+		switch(input) {
+			case 1:
+				martialStatus = "Married-civ-spouse";
+				break;
+			case 2:
+				martialStatus = "Divorced";
+				break;
+			case 3:
+				martialStatus = "Never-married";
+				break;
+			case 4:
+				martialStatus = "Separated";
+				break;
+			case 5:
+				martialStatus = "Widowed";
+				break;
+			case 6:
+				martialStatus = "Married-spouse-absent";
+				break;
+			case 7:
+				martialStatus = "Married-AF-spouse";
+				break;
+			default:
+				break;
+		}
+		ip.marital = martialStatus;
 		return ip;
 	}
 	public IncomePerson filterRace(IncomePerson ip){
@@ -177,7 +217,25 @@ public class InputManager {
 		return ip;
 	}
 	public IncomePerson filterSex(IncomePerson ip){
+		Scanner in = new Scanner(System.in);
 		System.out.println("  Filter: Sex");
+		System.out.println(
+				"  1) Female"
+				+"  2) Male"
+		);
+		int input = in.nextInt();
+		String gender = "";
+		switch (input) {
+			case 1:
+				gender = "female";
+				break;
+			case 2:
+				gender = "male";
+				break;
+			default:
+				break;
+		}
+		ip.sex = gender;
 		return ip;
 	}
 	public IncomePerson filterCountry(IncomePerson ip){
