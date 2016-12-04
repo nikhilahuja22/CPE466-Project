@@ -46,6 +46,35 @@ public class IncomePerson implements Comparable{
 		this.edu = edu;
 		this.hours = hours;
 	}
+        
+        public String getValueFor(String attribute) {
+            
+            if (attribute.equals("marital")) {
+                return marital;
+            }
+            else if (attribute.equals("race")) {
+                return race;
+            }
+            else if (attribute.equals("country")) {
+                return country;
+            }
+            else if (attribute.equals("occupation")) {
+                return occupation;
+            }
+            else if (attribute.equals("sex")) {
+                return sex;
+            }
+            else if (attribute.equals("workclass")) {
+                return workclass;
+            }
+            else if (attribute.equals("income")) {
+                return income;
+            }
+           
+            throw new IllegalArgumentException("Invalid day of the week: " + attribute);
+            
+        }
+        
 	
 	public boolean matches(IncomePerson subject){
 		if(age != null && age != subject.age)

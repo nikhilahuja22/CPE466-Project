@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Project {
+
 	static boolean debug = true;
 
 	static ArrayList<IncomePerson> data = new ArrayList<>();
@@ -20,28 +23,31 @@ public class Project {
 		data = dp.parseData();
 		IncomePerson inputPerson = im.getInputPerson();
 		IncomePerson filter = im.getFilter();
-		
-		filteredData = filterData(data, filter);
+		System.out.println(getDistance(data.get(0), data.get(1)));
 
 		List<IncomePerson> nearestNeighbors = findKNN(inputPerson, 50);
 
 		for (IncomePerson ip : nearestNeighbors) {
 			System.out.println(ip.toString());
 		}
+
+		System.out.print(mostProbableCategory("race", nearestNeighbors));
+		filteredData = filterData(data, filter);
 	}
 
 	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {
 		ArrayList<IncomePerson> fal = new ArrayList<>();
 		for (int i = 0; i < al.size(); i++) {
-			if(al.get(i).equals("Black")){
-			System.out.println("!");
-		}
+			if (al.get(i).equals("Black")) {
+				System.out.println("!");
+			}
 			if (filter.matches(al.get(i))) {
 				fal.add(al.get(i));
 			}
 		}
 		System.out.println("Filter run. " + (al.size() - fal.size()) + " tuples removed.");
 		return fal;
+
 	}
 
 	/* get 3d distance between 2 people */
@@ -67,6 +73,41 @@ public class Project {
 		Collections.sort(ipsWithDist);
 
 		return ipsWithDist.subList(0, k);
+
+	}
+
+	public static String mostProbableCategory(String filter, List<IncomePerson> listNN) {
+		HashSet<String> valuesForFilter = findValueForFilter(filter, listNN);
+		HashMap<String, Integer> probTable = new HashMap();
+
+		for (String text : valuesForFilter) {
+			probTable.put(text, new Integer(0));
+		}
+
+		for (IncomePerson ip : listNN) {
+			String valueForIP = ip.getValueFor(filter);
+			probTable.put(valueForIP, probTable.get(valueForIP).intValue() + 1);
+		}
+
+		int highestProb = 0;
+		String highestFilter = "";
+		for (Map.Entry<String, Integer> entry : probTable.entrySet()) {
+			if (entry.getValue().intValue() > highestProb) {
+				highestProb = entry.getValue().intValue();
+				highestFilter = entry.getKey();
+			}
+		}
+		return highestFilter;
+
+	}
+
+	public static HashSet<String> findValueForFilter(String filter, List<IncomePerson> listNN) {
+		HashSet<String> values = new HashSet<>();
+		for (IncomePerson ip : listNN) {
+			values.add(ip.getValueFor(filter));
+		}
+
+		return values;
 
 	}
 }
