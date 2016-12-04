@@ -23,24 +23,23 @@ public class Project {
 		data = dp.parseData();
 		IncomePerson inputPerson = im.getInputPerson();
 		IncomePerson filter = im.getFilter();
-		System.out.println(getDistance(data.get(0), data.get(1)));
-
+		
+		System.out.println("Filter: "+filter);
+		
 		List<IncomePerson> nearestNeighbors = findKNN(inputPerson, 50);
 
 		for (IncomePerson ip : nearestNeighbors) {
 			System.out.println(ip.toString());
 		}
 
-		System.out.print(mostProbableCategory("race", nearestNeighbors));
+		System.out.println("Most probable category: "+ mostProbableCategory("race", nearestNeighbors));
 		filteredData = filterData(data, filter);
 	}
 
 	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {
 		ArrayList<IncomePerson> fal = new ArrayList<>();
 		for (int i = 0; i < al.size(); i++) {
-			if (al.get(i).equals("Black")) {
-				System.out.println("!");
-			}
+			//System.out.println(al.get(i).race);
 			if (filter.matches(al.get(i))) {
 				fal.add(al.get(i));
 			}
