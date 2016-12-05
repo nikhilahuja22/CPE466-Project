@@ -20,7 +20,7 @@ public class Project {
 	static ArrayList<IncomePerson> data = new ArrayList<>();
 	static DataParser dp = new DataParser();
 	static InputManager im = new InputManager();
-
+        static KNN knn= new KNN();
 	public static void main(String args[]) {
 		data = dp.parseData();
                 double kNNRatio = 0.25;
@@ -28,30 +28,18 @@ public class Project {
 		IncomePerson filter = im.getFilter();
 
 		System.out.println("Filter: "+filter);
-		data = filterData(data, filter);
+		data = knn.filterData(data, filter);
 		
-		List<IncomePerson> nearestNeighbors = findKNN(data, inputPerson, 50,kNNRatio);
+		List<IncomePerson> nearestNeighbors = knn.findKNN(data, inputPerson, 50,kNNRatio);
 
 		for (IncomePerson ip : nearestNeighbors) {
 			System.out.println(ip.toString());
 		}
                 //printBaggingResult(bagging(data, "income", .33));
-		System.out.println("Most probable category: "+ mostProbableCategory("income", nearestNeighbors));
+		System.out.println("Most probable category: "+ knn.mostProbableCategory("income", nearestNeighbors));
                 printBaggingResult(bagging(data, inputPerson, "income", .33));
 	}
 
-	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {
-		ArrayList<IncomePerson> fal = new ArrayList<>();
-		for (int i = 0; i < al.size(); i++) {
-			//System.out.println(al.get(i).race);
-			if (filter.matches(al.get(i))) {
-				fal.add(al.get(i));
-			}
-		}
-		System.out.println("Filter run. " + (al.size() - fal.size()) + " tuples removed.");
-		return fal;
-
-	}
 
 	/* get 3d distance between 2 people */
 	public static double getDistance(IncomePerson a, IncomePerson b) {
@@ -66,21 +54,6 @@ public class Project {
 	}
 
 
-	public static List<IncomePerson> findKNN(ArrayList<IncomePerson> dataSet, 
-         IncomePerson key, int k, double kNNRatio) {
-                //System.out.println("kNNfunction");
-
-		ArrayList<IncomePerson> ipsWithDist = new ArrayList<>();
-		for (IncomePerson ip : dataSet) {
-			ip.getDistance(key);
-			ipsWithDist.add(ip);
-		}
-
-		Collections.sort(ipsWithDist);
-
-		return ipsWithDist.subList(0, k);
-
-	}
         
         public static ArrayList<String> bagging(ArrayList<IncomePerson> data, 
          IncomePerson person, String category, double ratio) {
@@ -96,8 +69,8 @@ public class Project {
                     dataSet.add(data.get(randomGenerator.nextInt(data.size())));
                 }
                 //System.out.println("kNN");
-                List<IncomePerson> kNN = findKNN(dataSet, person, 50, 0.25);
-                result.add(mostProbableCategory(category, kNN));
+                List<IncomePerson> kNN = knn.findKNN(dataSet, person, 50, 0.25);
+                result.add(knn.mostProbableCategory(category, kNN));
                 dataSet.clear();
                 //System.out.println("this");
             }
@@ -133,38 +106,7 @@ public class Project {
             + " Accuracy: " + majority + "/" + result.size());
         }
 
-	public static String mostProbableCategory(String filter, List<IncomePerson> listNN) {
-		HashSet<String> valuesForFilter = findValueForFilter(filter, listNN);
-		HashMap<String, Integer> probTable = new HashMap();
+	
 
-		for (String text : valuesForFilter) {
-			probTable.put(text, new Integer(0));
-		}
-
-		for (IncomePerson ip : listNN) {
-			String valueForIP = ip.getValueFor(filter);
-			probTable.put(valueForIP, probTable.get(valueForIP).intValue() + 1);
-		}
-
-		int highestProb = 0;
-		String highestFilter = "";
-		for (Map.Entry<String, Integer> entry : probTable.entrySet()) {
-			if (entry.getValue().intValue() > highestProb) {
-				highestProb = entry.getValue().intValue();
-				highestFilter = entry.getKey();
-			}
-		}
-		return highestFilter;
-
-	}
-
-	public static HashSet<String> findValueForFilter(String filter, List<IncomePerson> listNN) {
-		HashSet<String> values = new HashSet<>();
-		for (IncomePerson ip : listNN) {
-			values.add(ip.getValueFor(filter));
-		}
-
-		return values;
-
-	}
+	
 }
