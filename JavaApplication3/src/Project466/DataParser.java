@@ -30,6 +30,8 @@ public class DataParser {
 			}*/
 		}catch(Exception e){
 			//File not found
+			System.out.print("File not found");
+
 		}
 		
 		return data;

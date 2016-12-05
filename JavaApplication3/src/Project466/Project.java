@@ -16,7 +16,7 @@ import java.util.Iterator;
 public class Project {
 
 	static boolean debug = true;
-        static final int bagSize = 10;
+        static final int bagSize = 50;
 	static ArrayList<IncomePerson> data = new ArrayList<>();
 	static DataParser dp = new DataParser();
 	static InputManager im = new InputManager();
@@ -26,7 +26,7 @@ public class Project {
                 double kNNRatio = 0.25;
 		IncomePerson inputPerson = im.getInputPerson();
 		IncomePerson filter = im.getFilter();
-		
+
 		System.out.println("Filter: "+filter);
 		data = filterData(data, filter);
 		
@@ -37,7 +37,7 @@ public class Project {
 		}
                 //printBaggingResult(bagging(data, "income", .33));
 		System.out.println("Most probable category: "+ mostProbableCategory("income", nearestNeighbors));
-                printBaggingResult(bagging(data, "income", .33));
+                printBaggingResult(bagging(data, inputPerson, "income", .33));
 	}
 
 	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {
@@ -65,9 +65,11 @@ public class Project {
 		return res;
 	}
 
+
 	public static List<IncomePerson> findKNN(ArrayList<IncomePerson> dataSet, 
          IncomePerson key, int k, double kNNRatio) {
-                System.out.println("kNNfunction");
+                //System.out.println("kNNfunction");
+
 		ArrayList<IncomePerson> ipsWithDist = new ArrayList<>();
 		for (IncomePerson ip : dataSet) {
 			ip.getDistance(key);
@@ -75,31 +77,31 @@ public class Project {
 		}
 
 		Collections.sort(ipsWithDist);
-                //System.out.println("kNN");
+
 		return ipsWithDist.subList(0, k);
 
 	}
         
         public static ArrayList<String> bagging(ArrayList<IncomePerson> data, 
-         String category, double ratio) {
+         IncomePerson person, String category, double ratio) {
         
             ArrayList<IncomePerson> dataSet = new ArrayList<IncomePerson>();
             ArrayList<String> result = new ArrayList<String>();
             Random randomGenerator = new Random();
             
             for(int i = 0; i < bagSize; i++) {
-                System.out.println("bag");
+                //System.out.println("bag");
                 for(int j = 0; j < (int)(ratio * data.size()); j++) {
-                    System.out.println("here");
+                    //System.out.println("here");
                     dataSet.add(data.get(randomGenerator.nextInt(data.size())));
                 }
-                System.out.println("kNN");
-                List<IncomePerson> kNN = findKNN(dataSet, im.getInputPerson(), 50, 0.25);
+                //System.out.println("kNN");
+                List<IncomePerson> kNN = findKNN(dataSet, person, 50, 0.25);
                 result.add(mostProbableCategory(category, kNN));
                 dataSet.clear();
-                System.out.println("this");
+                //System.out.println("this");
             }
-            //System.out.println(result);
+            System.out.println(result);
             return result;
         }
         
