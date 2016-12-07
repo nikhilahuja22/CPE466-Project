@@ -22,9 +22,7 @@ public class KNN {
 	}
 
 	public static List<IncomePerson> findKNN(ArrayList<IncomePerson> dataSet,
-			IncomePerson key, int k, double kNNRatio) {
-		//System.out.println("kNNfunction");
-
+			IncomePerson key, int k) {
 		ArrayList<IncomePerson> ipsWithDist = new ArrayList<>();
 		for (IncomePerson ip : dataSet) {
 			ip.getDistance(key);
@@ -34,7 +32,6 @@ public class KNN {
 		Collections.sort(ipsWithDist);
 
 		return ipsWithDist.subList(0, k);
-
 	}
 
 	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {
@@ -82,6 +79,5 @@ public class KNN {
 			}
 		}
 		return highestFilter;
-
 	}
 }

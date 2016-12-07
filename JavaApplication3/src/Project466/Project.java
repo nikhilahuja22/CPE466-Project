@@ -24,14 +24,14 @@ public class Project {
 
 	public static void main(String args[]) {
 		data = dp.parseData();
-		double kNNRatio = 0.25;
 		IncomePerson inputPerson = im.getInputPerson();
 		IncomePerson filter = im.getFilter();
 
 		System.out.println("Filter: " + filter);
 		data = knn.filterData(data, filter);
 
-		List<IncomePerson> nearestNeighbors = knn.findKNN(data, inputPerson, 50, kNNRatio);
+		int k = 200;		//see kchooser.java
+		List<IncomePerson> nearestNeighbors = knn.findKNN(data, inputPerson, k);
 
 		for (IncomePerson ip : nearestNeighbors) {
 			System.out.println(ip.toString());
@@ -68,7 +68,7 @@ public class Project {
 				dataSet.add(data.get(randomGenerator.nextInt(data.size())));
 			}
 			//System.out.println("kNN");
-			List<IncomePerson> kNN = knn.findKNN(dataSet, person, 50, 0.25);
+			List<IncomePerson> kNN = knn.findKNN(dataSet, person, 50);
 			result.add(knn.mostProbableCategory(category, kNN));
 			dataSet.clear();
 			//System.out.println("this");
