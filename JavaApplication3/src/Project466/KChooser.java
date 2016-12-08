@@ -20,8 +20,7 @@ error rate for k =
 
 public class KChooser {
 	static int quickVersion = 1;	//speed up
-	static int kmin = 50, kmax = 800;
-	static int foldsToCheck = 300;
+	static int kmin = 50, kmax = 800, increment = 50;
 	static int V = 15;
 	
 	static KNN knn = new KNN();
@@ -33,7 +32,6 @@ public class KChooser {
 
 	public static void main(String args[]) {
 		fdata = dp.parseData();
-		int kmin = 300, kmax = 400, increment = 25;
 		
 		ArrayList<Double> errRates = new ArrayList<>();
 		for(int i=kmin; i<=kmax; i += increment){
@@ -60,9 +58,6 @@ public class KChooser {
 			
 			double prev = res;
 			res = errorSum / (double)i;
-			if(quickVersion > 0 && i >= foldsToCheck){
-				break;
-			}
 		}
 		
 		System.out.println(k+"\t"+res);
@@ -88,7 +83,7 @@ public class KChooser {
 		}
 		
 		/* get error rate */
-		//TODO sum of squared error
+		//sum of squared error
 		double res = (double)errSum / (double)(i * 2);
 		return res;
 	}
@@ -103,9 +98,9 @@ public class KChooser {
 		if(isOutputCorrect("income", ip, neighbors)){
 			correct++;
 		}
-		if(isOutputCorrect("marital", ip, neighbors)){
+		/*if(isOutputCorrect("marital", ip, neighbors)){
 			correct++;
-		}
+		}*/
 		
 		return correct;
 	}
