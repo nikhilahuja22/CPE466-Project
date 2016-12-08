@@ -20,6 +20,9 @@ error rate for k =
 
 public class KChooser {
 	static int quickVersion = 1;	//speed up
+	static int kmin = 50, kmax = 800;
+	static int foldsToCheck = 300;
+	static int V = 15;
 	
 	static KNN knn = new KNN();
 	static DataParser dp = new DataParser();
@@ -27,11 +30,10 @@ public class KChooser {
 	static ArrayList<IncomePerson> fdata = new ArrayList<>();
 	static ArrayList<ArrayList<IncomePerson>> folds = new ArrayList<>();
 	static HashMap<Integer, Double> kErrorRates = new HashMap<>();
-	static int V = 100;
 
 	public static void main(String args[]) {
 		fdata = dp.parseData();
-		int kmin = 25, kmax = 25, increment = 50;
+		int kmin = 300, kmax = 400, increment = 25;
 		
 		ArrayList<Double> errRates = new ArrayList<>();
 		for(int i=kmin; i<=kmax; i += increment){
@@ -58,7 +60,7 @@ public class KChooser {
 			
 			double prev = res;
 			res = errorSum / (double)i;
-			if(quickVersion > 0 && i >= 80){
+			if(quickVersion > 0 && i >= foldsToCheck){
 				break;
 			}
 		}
@@ -147,11 +149,5 @@ public class KChooser {
 		}
 		return training;
 	}
-	/*
-	private static IncomePerson getRandomPerson(int foldIdx){
-		ArrayList<IncomePerson> fold = folds.get(foldIdx);
-		int randIdx = (int)Math.floor(Math.random() * fold.size());
-		IncomePerson ip = fold.get(randIdx);
-		return ip;
-	}*/
+	
 }
