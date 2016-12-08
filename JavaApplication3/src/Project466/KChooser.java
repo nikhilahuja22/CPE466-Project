@@ -20,8 +20,8 @@ error rate for k =
 
 public class KChooser {
 	static int quickVersion = 1;	//speed up
-	static int kmin = 50, kmax = 800, increment = 50;
-	static int V = 15;
+	static int kmin = 50, kmax = 400, increment = 50;
+	static int V = 10;
 	
 	static KNN knn = new KNN();
 	static DataParser dp = new DataParser();
@@ -71,12 +71,12 @@ public class KChooser {
 		ArrayList<IncomePerson> training = getTrainingData(foldIdx, folds);
 		
 		/* for every ip in fold, run KNN and get errors */
-		double errSum = 0;
+		double correctSum = 0;
 		
 		int i;
 		for(i=0; i<testing.size(); i++){
 			int queryRes = runKNNQuery(testing.get(i), training, k);
-			errSum += 2-queryRes;
+			correctSum += queryRes;
 			if(quickVersion > 0 && i >= testing.size()/2){
 				break;
 			}
@@ -84,7 +84,7 @@ public class KChooser {
 		
 		/* get error rate */
 		//sum of squared error
-		double res = (double)errSum / (double)(i * 2);
+		double res = (double)(i - correctSum) / (double)i;
 		return res;
 	}
 	
