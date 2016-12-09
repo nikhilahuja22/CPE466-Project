@@ -345,9 +345,9 @@ public class InputManager {
 		);
 		int input = in.nextInt();
 		if(input == 1)
-			ip.income = ">50k";
+			ip.income = ">50K";
 		else if(input == 2)
-			ip.income = "<=50k";
+			ip.income = "<=50K";
 		else
 			ip.income = "";
 		return ip;
