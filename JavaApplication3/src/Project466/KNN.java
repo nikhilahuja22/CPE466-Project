@@ -31,7 +31,10 @@ public class KNN {
 
 		Collections.sort(ipsWithDist);
 
-		return ipsWithDist.subList(0, k);
+		if(ipsWithDist.size() > k){
+			return ipsWithDist.subList(0, k);
+		}
+		return ipsWithDist;
 	}
 
 	public static ArrayList<IncomePerson> filterData(ArrayList<IncomePerson> al, IncomePerson filter) {

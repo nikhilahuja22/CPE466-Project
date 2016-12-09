@@ -41,19 +41,6 @@ public class Project {
 		printBaggingResult(bagging(data, inputPerson, "income", .33));
 	}
 
-
-	/* get 3d distance between 2 people */
-	public static double getDistance(IncomePerson a, IncomePerson b) {
-		double ageWgt = 1, eduWgt = 1, hoursWgt = 1;
-		double res
-				= Math.sqrt(
-						ageWgt * Math.pow((double) a.age - (double) b.age, 2)
-						+ eduWgt * Math.pow((double) a.edu - (double) b.edu, 2)
-						+ hoursWgt * Math.pow((double) a.hours - (double) b.hours, 2)
-				);
-		return res;
-	}
-
 	public static ArrayList<String> bagging(ArrayList<IncomePerson> data,
 			IncomePerson person, String category, double ratio) {
 

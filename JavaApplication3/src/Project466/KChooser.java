@@ -19,9 +19,11 @@ error rate for k =
 */
 
 public class KChooser {
-	static int quickVersion = 1;	//speed up
-	static int kmin = 50, kmax = 400, increment = 50;
+	static double queryRatio = 1;	//speed up, 1 = full run
+	static int kmin = 50, kmax = 75, increment = 25;
 	static int V = 10;
+	static boolean testIncome = true;
+	static boolean testMarital = false;
 	
 	static KNN knn = new KNN();
 	static DataParser dp = new DataParser();
@@ -77,7 +79,7 @@ public class KChooser {
 		for(i=0; i<testing.size(); i++){
 			int queryRes = runKNNQuery(testing.get(i), training, k);
 			correctSum += queryRes;
-			if(quickVersion > 0 && i >= testing.size()/2){
+			if(queryRatio != 1 && i >= testing.size() * queryRatio){
 				break;
 			}
 		}
@@ -95,12 +97,12 @@ public class KChooser {
 		
 		ArrayList<IncomePerson> neighbors = new ArrayList<>( KNN.findKNN(training, ip, k) );
 		
-		if(isOutputCorrect("income", ip, neighbors)){
+		if(testIncome && isOutputCorrect("income", ip, neighbors)){
 			correct++;
 		}
-		/*if(isOutputCorrect("marital", ip, neighbors)){
+		if(testMarital && isOutputCorrect("marital", ip, neighbors)){
 			correct++;
-		}*/
+		}
 		
 		return correct;
 	}

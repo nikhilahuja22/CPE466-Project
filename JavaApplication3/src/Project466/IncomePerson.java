@@ -77,13 +77,13 @@ public class IncomePerson implements Comparable {
 	 specified (non-null, non-empty) values
 	*/
 	public boolean matches(IncomePerson subject) {
-		if (age != null && age != subject.age) {
+		if (age != null && !age.equals(subject.age)) {
 			return false;
 		}
 		if (!workclass.isEmpty() && !workclass.equals(subject.workclass)) {
 			return false;
 		}
-		if (edu != null && edu != subject.edu) {
+		if (edu != null && !edu.equals(subject.edu)) {
 			return false;
 		}
 		if (!marital.isEmpty() && !marital.equals(subject.marital)) {
@@ -101,7 +101,7 @@ public class IncomePerson implements Comparable {
 		if (!sex.isEmpty() && !sex.equals(subject.sex)) {
 			return false;
 		}
-		if (hours != null && hours != subject.hours) {
+		if (hours != null && !hours.equals(subject.hours)) {
 			return false;
 		}
 		if (!country.isEmpty() && !country.equals(subject.country)) {
@@ -140,14 +140,14 @@ public class IncomePerson implements Comparable {
 
 	@Override
 	public String toString() {
-		return " age: " + (age!=null ? age : "unspecified")
+		return " age: " + (age!=null ? age : "")
 				+ " workclass: " + workclass
 				+ " edu: " + edu
 				+ " marital: " + marital
 				+ " relationship: " + relationship
 				+ " race: " + race
 				+ " sex: " + sex
-				+ " hours: " + (hours!=null ? hours : "unspecified")
+				+ " hours: " + (hours!=null ? hours : "")
 				+ " country: " + country
 				+ " income: " + income;
 	}
