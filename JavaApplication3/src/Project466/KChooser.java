@@ -116,7 +116,7 @@ public class KChooser {
 	private static ArrayList<ArrayList<IncomePerson>> getFolds(ArrayList<IncomePerson> data){
 		ArrayList<ArrayList<IncomePerson>> folds = new ArrayList<>();
 		for(int i=0; i<V; i++){
-			folds.add(new ArrayList<>());
+			folds.add(new ArrayList<IncomePerson>());
 		}
 		
 		/* populate each fold */
