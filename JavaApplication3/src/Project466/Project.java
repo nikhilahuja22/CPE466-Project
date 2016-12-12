@@ -30,7 +30,7 @@ public class Project {
 		System.out.println("Filter: " + filter);
 		data = knn.filterData(data, filter);
 
-		int k = 200;		//see kchooser.java
+		int k = 175;		//see kchooser.java
 		List<IncomePerson> nearestNeighbors = knn.findKNN(data, inputPerson, k);
 
 		for (IncomePerson ip : nearestNeighbors) {
