@@ -1,3 +1,8 @@
+The program has two main functions - one in Project.java and one in KChooser.java.
+Project.java contains the primary software functionality.
+
+=
+
 Our project uses the kNN algorithm to classify users into their likely income class.
 
 The program first prompts the user for three attributes; age, education level, and hours worked per week. This is sufficient for classification, but several filters, such as race and sex, can be applied to reduce the dataset.
@@ -10,9 +15,12 @@ After running the kNN algorithm, a bagging algorithm is run to test the accuracy
 
 The k value for the kNN algorithm is determined by KChooser.java, which uses outputs the error rates of various k values via cross validation.
 
-The results are interesting because this program has a way of predicting a person’s yearly income based on a myriad of factors. We have also discovered several income disparities in race and gender.
+The results are interesting because this program has a way of predicting a person’s yearly income based on a myriad of factors. We have also discovered several income disparities in race and gender (see powerpoint and excel sheet "graphs.xlsx").
+
+=
 
 LOG:
+
 Nikhil Ahuja
 - KNN algorithm (KNN.java)
 Sindhuja Ramini
